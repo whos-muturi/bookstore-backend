@@ -1,14 +1,20 @@
 const pool = require("../database/db");
 
-async function findAll() {
+async function findByEmail(email) {
 
     const result = await pool.query(
-        "SELECT * FROM users"
+        `
+        SELECT *
+        FROM users
+        WHERE email = $1
+        `,
+        [email]
     );
 
-    return result.rows;
+    return result.rows[0];
+
 }
 
 module.exports = {
-    findAll
+    findByEmail
 };
